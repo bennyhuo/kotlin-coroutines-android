@@ -12,7 +12,7 @@ Inspired by [AutoDispose](https://github.com/uber/autodispose), auto cancel the 
 Add dependency in gradle:
 
 ```
-api "com.bennyhuo.kotlin:coroutines-android-autodisposable:$version"
+api "com.bennyhuo.kotlin:coroutines-android-autodisposable:1.0-beta"
 ```
 
 Use `asAutoDisposable` to convert a `Job` to an `AutoDisposableJob`. Then the job will be cancelled when the view is removed.
@@ -44,7 +44,7 @@ An instance of `MainScope` which use `Dispatchers.Main` as its dispatcher will b
 Add dependency in gradle:
 
 ```
-api 'com.bennyhuo.kotlin:coroutines-android-mainscope:1.0'
+api 'com.bennyhuo.kotlin:coroutines-android-mainscope:1.0-beta'
 ```
 
 Initialize this library in your customized `Application`:
