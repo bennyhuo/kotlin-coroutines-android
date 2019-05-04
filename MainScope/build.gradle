@@ -24,6 +24,10 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_version"
+
+    compileOnly "com.android.support:recyclerview-v7:$android_support_version"
+    compileOnly "com.android.support:design:$android_support_version"
+    compileOnly "com.android.support:appcompat-v7:$android_support_version"
 }
 
 

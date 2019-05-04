@@ -1,14 +1,15 @@
 package com.bennyhuo.kotlin.coroutines.android.mainscope
 
 import android.view.WindowInsets
+import com.bennyhuo.kotlin.coroutines.android.mainscope.internal.MainScoped
 import com.bennyhuo.kotlin.coroutines.android.mainscope.job.launch
 
-interface ScopedActivity: Scoped {
+interface BasicScoped: MainScoped {
     fun android.view.View.onLayoutChange(
             handler: suspend MainScope.(v: android.view.View?, left: Int, top: Int, right: Int, bottom: Int, oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int) -> Unit
     ) {
         addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
-            scope.launch {
+            mainScope.launch {
                 handler(v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom)
             }
         }
@@ -17,7 +18,7 @@ interface ScopedActivity: Scoped {
     fun android.view.View.onAttachStateChangeListener(
             init: __View_OnAttachStateChangeListener.() -> Unit
     ) {
-        val listener = __View_OnAttachStateChangeListener(scope)
+        val listener = __View_OnAttachStateChangeListener(mainScope)
         listener.init()
         addOnAttachStateChangeListener(listener)
     }
@@ -61,7 +62,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(p0: android.view.View?, p1: android.view.KeyEvent?) -> Unit
     ) {
         addOnUnhandledKeyEventListener { p0, p1 ->
-            scope.launch {
+            mainScope.launch {
                 handler(p0, p1)
             }
             returnValue
@@ -71,7 +72,7 @@ interface ScopedActivity: Scoped {
     fun android.widget.TextView.textChangedListener(
             init: __TextWatcher.() -> Unit
     ) {
-        val listener = __TextWatcher(scope)
+        val listener = __TextWatcher(mainScope)
         listener.init()
         addTextChangedListener(listener)
     }
@@ -129,7 +130,7 @@ interface ScopedActivity: Scoped {
     }fun android.gesture.GestureOverlayView.onGestureListener(
             init: __GestureOverlayView_OnGestureListener.() -> Unit
     ) {
-        val listener = __GestureOverlayView_OnGestureListener(scope)
+        val listener = __GestureOverlayView_OnGestureListener(mainScope)
         listener.init()
         addOnGestureListener(listener)
     }
@@ -204,7 +205,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(overlay: android.gesture.GestureOverlayView?, gesture: android.gesture.Gesture?) -> Unit
     ) {
         addOnGesturePerformedListener { overlay, gesture ->
-            scope.launch {
+            mainScope.launch {
                 handler(overlay, gesture)
             }
         }
@@ -213,7 +214,7 @@ interface ScopedActivity: Scoped {
     fun android.gesture.GestureOverlayView.onGesturingListener(
             init: __GestureOverlayView_OnGesturingListener.() -> Unit
     ) {
-        val listener = __GestureOverlayView_OnGesturingListener(scope)
+        val listener = __GestureOverlayView_OnGesturingListener(mainScope)
         listener.init()
         addOnGesturingListener(listener)
     }
@@ -257,7 +258,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(event: android.view.InputEvent?) -> Unit
     ) {
         setOnUnhandledInputEventListener { event ->
-            scope.launch {
+            mainScope.launch {
                 handler(event)
             }
             returnValue
@@ -269,7 +270,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(v: android.view.View?, insets: android.view.WindowInsets?) -> Unit
     ) {
         setOnApplyWindowInsetsListener { v, insets ->
-            scope.launch {
+            mainScope.launch {
                 handler(v, insets)
             }
             returnValue
@@ -281,7 +282,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(view: android.view.View?, event: android.view.MotionEvent?) -> Unit
     ) {
         setOnCapturedPointerListener { view, event ->
-            scope.launch {
+            mainScope.launch {
                 handler(view, event)
             }
             returnValue
@@ -292,7 +293,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(v: android.view.View?) -> Unit
     ) {
         setOnClickListener { v ->
-            scope.launch {
+            mainScope.launch {
                 handler(v)
             }
         }
@@ -303,7 +304,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(v: android.view.View?) -> Unit
     ) {
         setOnContextClickListener { v ->
-            scope.launch {
+            mainScope.launch {
                 handler(v)
             }
             returnValue
@@ -314,7 +315,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(menu: android.view.ContextMenu?, v: android.view.View?, menuInfo: android.view.ContextMenu.ContextMenuInfo?) -> Unit
     ) {
         setOnCreateContextMenuListener { menu, v, menuInfo ->
-            scope.launch {
+            mainScope.launch {
                 handler(menu, v, menuInfo)
             }
         }
@@ -325,7 +326,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(v: android.view.View, event: android.view.DragEvent) -> Unit
     ) {
         setOnDragListener { v, event ->
-            scope.launch {
+            mainScope.launch {
                 handler(v, event)
             }
             returnValue
@@ -336,7 +337,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(v: android.view.View, hasFocus: Boolean) -> Unit
     ) {
         setOnFocusChangeListener { v, hasFocus ->
-            scope.launch {
+            mainScope.launch {
                 handler(v, hasFocus)
             }
         }
@@ -347,7 +348,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(v: android.view.View, event: android.view.MotionEvent) -> Unit
     ) {
         setOnGenericMotionListener { v, event ->
-            scope.launch {
+            mainScope.launch {
                 handler(v, event)
             }
             returnValue
@@ -359,7 +360,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(v: android.view.View, event: android.view.MotionEvent) -> Unit
     ) {
         setOnHoverListener { v, event ->
-            scope.launch {
+            mainScope.launch {
                 handler(v, event)
             }
             returnValue
@@ -371,7 +372,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(v: android.view.View, keyCode: Int, event: android.view.KeyEvent?) -> Unit
     ) {
         setOnKeyListener { v, keyCode, event ->
-            scope.launch {
+            mainScope.launch {
                 handler(v, keyCode, event)
             }
             returnValue
@@ -383,7 +384,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(v: android.view.View?) -> Unit
     ) {
         setOnLongClickListener { v ->
-            scope.launch {
+            mainScope.launch {
                 handler(v)
             }
             returnValue
@@ -394,7 +395,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(v: android.view.View?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int) -> Unit
     ) {
         setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-            scope.launch {
+            mainScope.launch {
                 handler(v, scrollX, scrollY, oldScrollX, oldScrollY)
             }
         }
@@ -404,7 +405,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(visibility: Int) -> Unit
     ) {
         setOnSystemUiVisibilityChangeListener { visibility ->
-            scope.launch {
+            mainScope.launch {
                 handler(visibility)
             }
         }
@@ -415,7 +416,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(v: android.view.View, event: android.view.MotionEvent) -> Unit
     ) {
         setOnTouchListener { v, event ->
-            scope.launch {
+            mainScope.launch {
                 handler(v, event)
             }
             returnValue
@@ -425,7 +426,7 @@ interface ScopedActivity: Scoped {
     fun android.view.ViewGroup.onHierarchyChangeListener(
             init: __ViewGroup_OnHierarchyChangeListener.() -> Unit
     ) {
-        val listener = __ViewGroup_OnHierarchyChangeListener(scope)
+        val listener = __ViewGroup_OnHierarchyChangeListener(mainScope)
         listener.init()
         setOnHierarchyChangeListener(listener)
     }
@@ -468,7 +469,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(stub: android.view.ViewStub?, inflated: android.view.View?) -> Unit
     ) {
         setOnInflateListener { stub, inflated ->
-            scope.launch {
+            mainScope.launch {
                 handler(stub, inflated)
             }
         }
@@ -477,7 +478,7 @@ interface ScopedActivity: Scoped {
     fun android.widget.AbsListView.onScrollListener(
             init: __AbsListView_OnScrollListener.() -> Unit
     ) {
-        val listener = __AbsListView_OnScrollListener(scope)
+        val listener = __AbsListView_OnScrollListener(mainScope)
         listener.init()
         setOnScrollListener(listener)
     }
@@ -521,7 +522,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(item: android.view.MenuItem?) -> Unit
     ) {
         setOnMenuItemClickListener { item ->
-            scope.launch {
+            mainScope.launch {
                 handler(item)
             }
             returnValue
@@ -532,7 +533,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(p0: android.widget.AdapterView<*>?, p1: android.view.View?, p2: Int, p3: Long) -> Unit
     ) {
         setOnItemClickListener { p0, p1, p2, p3 ->
-            scope.launch {
+            mainScope.launch {
                 handler(p0, p1, p2, p3)
             }
         }
@@ -543,7 +544,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(p0: android.widget.AdapterView<*>?, p1: android.view.View?, p2: Int, p3: Long) -> Unit
     ) {
         setOnItemLongClickListener { p0, p1, p2, p3 ->
-            scope.launch {
+            mainScope.launch {
                 handler(p0, p1, p2, p3)
             }
             returnValue
@@ -553,7 +554,7 @@ interface ScopedActivity: Scoped {
     fun android.widget.AdapterView<out android.widget.Adapter>.onItemSelectedListener(
             init: __AdapterView_OnItemSelectedListener.() -> Unit
     ) {
-        val listener = __AdapterView_OnItemSelectedListener(scope)
+        val listener = __AdapterView_OnItemSelectedListener(mainScope)
         listener.init()
         setOnItemSelectedListener(listener)
     }
@@ -596,7 +597,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.() -> Unit
     ) {
         setOnDismissListener {  ->
-            scope.launch(block = handler)
+            mainScope.launch(block = handler)
         }
     }
 
@@ -604,7 +605,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(view: android.widget.CalendarView?, year: Int, month: Int, dayOfMonth: Int) -> Unit
     ) {
         setOnDateChangeListener { view, year, month, dayOfMonth ->
-            scope.launch {
+            mainScope.launch {
                 handler(view, year, month, dayOfMonth)
             }
         }
@@ -614,7 +615,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(chronometer: android.widget.Chronometer?) -> Unit
     ) {
         setOnChronometerTickListener { chronometer ->
-            scope.launch {
+            mainScope.launch {
                 handler(chronometer)
             }
         }
@@ -624,7 +625,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(buttonView: android.widget.CompoundButton?, isChecked: Boolean) -> Unit
     ) {
         setOnCheckedChangeListener { buttonView, isChecked ->
-            scope.launch {
+            mainScope.launch {
                 handler(buttonView, isChecked)
             }
         }
@@ -634,7 +635,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(view: android.widget.DatePicker?, year: Int, monthOfYear: Int, dayOfMonth: Int) -> Unit
     ) {
         setOnDateChangedListener { view, year, monthOfYear, dayOfMonth ->
-            scope.launch {
+            mainScope.launch {
                 handler(view, year, monthOfYear, dayOfMonth)
             }
         }
@@ -645,7 +646,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(parent: android.widget.ExpandableListView?, v: android.view.View?, groupPosition: Int, childPosition: Int, id: Long) -> Unit
     ) {
         setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
-            scope.launch {
+            mainScope.launch {
                 handler(parent, v, groupPosition, childPosition, id)
             }
             returnValue
@@ -657,7 +658,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(parent: android.widget.ExpandableListView?, v: android.view.View?, groupPosition: Int, id: Long) -> Unit
     ) {
         setOnGroupClickListener { parent, v, groupPosition, id ->
-            scope.launch {
+            mainScope.launch {
                 handler(parent, v, groupPosition, id)
             }
             returnValue
@@ -668,7 +669,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(groupPosition: Int) -> Unit
     ) {
         setOnGroupCollapseListener { groupPosition ->
-            scope.launch {
+            mainScope.launch {
                 handler(groupPosition)
             }
         }
@@ -678,7 +679,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(groupPosition: Int) -> Unit
     ) {
         setOnGroupExpandListener { groupPosition ->
-            scope.launch {
+            mainScope.launch {
                 handler(groupPosition)
             }
         }
@@ -688,7 +689,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(view: android.widget.NumberPicker?, scrollState: Int) -> Unit
     ) {
         setOnScrollListener { view, scrollState ->
-            scope.launch {
+            mainScope.launch {
                 handler(view, scrollState)
             }
         }
@@ -698,7 +699,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(picker: android.widget.NumberPicker?, oldVal: Int, newVal: Int) -> Unit
     ) {
         setOnValueChangedListener { picker, oldVal, newVal ->
-            scope.launch {
+            mainScope.launch {
                 handler(picker, oldVal, newVal)
             }
         }
@@ -708,7 +709,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(group: android.widget.RadioGroup?, checkedId: Int) -> Unit
     ) {
         setOnCheckedChangeListener { group, checkedId ->
-            scope.launch {
+            mainScope.launch {
                 handler(group, checkedId)
             }
         }
@@ -718,7 +719,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(ratingBar: android.widget.RatingBar?, rating: Float, fromUser: Boolean) -> Unit
     ) {
         setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
-            scope.launch {
+            mainScope.launch {
                 handler(ratingBar, rating, fromUser)
             }
         }
@@ -729,7 +730,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.() -> Unit
     ) {
         setOnCloseListener {  ->
-            scope.launch(block = handler)
+            mainScope.launch(block = handler)
             returnValue
         }
     }
@@ -738,7 +739,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(v: android.view.View, hasFocus: Boolean) -> Unit
     ) {
         setOnQueryTextFocusChangeListener { v, hasFocus ->
-            scope.launch {
+            mainScope.launch {
                 handler(v, hasFocus)
             }
         }
@@ -747,7 +748,7 @@ interface ScopedActivity: Scoped {
     fun android.widget.SearchView.onQueryTextListener(
             init: __SearchView_OnQueryTextListener.() -> Unit
     ) {
-        val listener = __SearchView_OnQueryTextListener(scope)
+        val listener = __SearchView_OnQueryTextListener(mainScope)
         listener.init()
         setOnQueryTextListener(listener)
     }
@@ -798,7 +799,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(v: android.view.View?) -> Unit
     ) {
         setOnSearchClickListener { v ->
-            scope.launch {
+            mainScope.launch {
                 handler(v)
             }
         }
@@ -807,7 +808,7 @@ interface ScopedActivity: Scoped {
     fun android.widget.SearchView.onSuggestionListener(
             init: __SearchView_OnSuggestionListener.() -> Unit
     ) {
-        val listener = __SearchView_OnSuggestionListener(scope)
+        val listener = __SearchView_OnSuggestionListener(mainScope)
         listener.init()
         setOnSuggestionListener(listener)
     }
@@ -857,7 +858,7 @@ interface ScopedActivity: Scoped {
     }fun android.widget.SeekBar.onSeekBarChangeListener(
             init: __SeekBar_OnSeekBarChangeListener.() -> Unit
     ) {
-        val listener = __SeekBar_OnSeekBarChangeListener(scope)
+        val listener = __SeekBar_OnSeekBarChangeListener(mainScope)
         listener.init()
         setOnSeekBarChangeListener(listener)
     }
@@ -916,7 +917,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.() -> Unit
     ) {
         setOnDrawerCloseListener {  ->
-            scope.launch(block = handler)
+            mainScope.launch(block = handler)
         }
     }
 
@@ -924,14 +925,14 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.() -> Unit
     ) {
         setOnDrawerOpenListener {  ->
-            scope.launch(block = handler)
+            mainScope.launch(block = handler)
         }
     }
 
     fun android.widget.SlidingDrawer.onDrawerScrollListener(
             init: __SlidingDrawer_OnDrawerScrollListener.() -> Unit
     ) {
-        val listener = __SlidingDrawer_OnDrawerScrollListener(scope)
+        val listener = __SlidingDrawer_OnDrawerScrollListener(mainScope)
         listener.init()
         setOnDrawerScrollListener(listener)
     }
@@ -970,7 +971,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(tabId: String?) -> Unit
     ) {
         setOnTabChangedListener { tabId ->
-            scope.launch {
+            mainScope.launch {
                 handler(tabId)
             }
         }
@@ -981,7 +982,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(v: android.widget.TextView?, actionId: Int, event: android.view.KeyEvent?) -> Unit
     ) {
         setOnEditorActionListener { v, actionId, event ->
-            scope.launch {
+            mainScope.launch {
                 handler(v, actionId, event)
             }
             returnValue
@@ -992,7 +993,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(view: android.widget.TimePicker?, hourOfDay: Int, minute: Int) -> Unit
     ) {
         setOnTimeChangedListener { view, hourOfDay, minute ->
-            scope.launch {
+            mainScope.launch {
                 handler(view, hourOfDay, minute)
             }
         }
@@ -1003,7 +1004,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(item: android.view.MenuItem?) -> Unit
     ) {
         setOnMenuItemClickListener { item ->
-            scope.launch {
+            mainScope.launch {
                 handler(item)
             }
             returnValue
@@ -1014,7 +1015,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(mp: android.media.MediaPlayer?) -> Unit
     ) {
         setOnCompletionListener { mp ->
-            scope.launch {
+            mainScope.launch {
                 handler(mp)
             }
         }
@@ -1025,7 +1026,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(mp: android.media.MediaPlayer?, what: Int, extra: Int) -> Unit
     ) {
         setOnErrorListener { mp, what, extra ->
-            scope.launch {
+            mainScope.launch {
                 handler(mp, what, extra)
             }
             returnValue
@@ -1037,7 +1038,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(mp: android.media.MediaPlayer?, what: Int, extra: Int) -> Unit
     ) {
         setOnInfoListener { mp, what, extra ->
-            scope.launch {
+            mainScope.launch {
                 handler(mp, what, extra)
             }
             returnValue
@@ -1048,7 +1049,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(mp: android.media.MediaPlayer?) -> Unit
     ) {
         setOnPreparedListener { mp ->
-            scope.launch {
+            mainScope.launch {
                 handler(mp)
             }
         }
@@ -1058,7 +1059,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(v: android.view.View?) -> Unit
     ) {
         setOnZoomInClickListener { v ->
-            scope.launch {
+            mainScope.launch {
                 handler(v)
             }
         }
@@ -1068,7 +1069,7 @@ interface ScopedActivity: Scoped {
             handler: suspend MainScope.(v: android.view.View?) -> Unit
     ) {
         setOnZoomOutClickListener { v ->
-            scope.launch {
+            mainScope.launch {
                 handler(v)
             }
         }

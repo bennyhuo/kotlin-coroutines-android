@@ -5,11 +5,13 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.ViewGroup.LayoutParams
 import android.widget.Button
-import com.bennyhuo.kotlin.coroutines.android.mainscope.ScopedActivity
+import com.bennyhuo.kotlin.coroutines.android.mainscope.AppCompatScoped
+import com.bennyhuo.kotlin.coroutines.android.mainscope.DesignScoped
+import com.bennyhuo.kotlin.coroutines.android.mainscope.RecyclerViewScoped
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.delay
 
-class MainActivity : AppCompatActivity(), ScopedActivity {
+class MainActivity : AppCompatActivity(), AppCompatScoped, DesignScoped, RecyclerViewScoped {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

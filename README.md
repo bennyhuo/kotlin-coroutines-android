@@ -3,6 +3,12 @@ Useful extensions for coroutines.
 
 Provide easier MainScope integration and auto disposable Job according to the view attached state.
 
+## AutoDisposable
+
+Inspired by []()
+
+## MainScope
+
 See sample usage in app.
 
 ```

@@ -1,4 +1,4 @@
-package com.bennyhuo.kotlin.coroutines.android.mainscope
+package com.bennyhuo.kotlin.coroutines.android.mainscope.internal
 
 import android.app.Activity
 import android.app.Application
@@ -16,10 +16,10 @@ internal class ActivityLifecycleCallbackImpl : Application.ActivityLifecycleCall
     override fun onActivityStopped(activity: Activity) {}
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-        (activity as? Scoped)?.onCreate()
+        (activity as? MainScoped)?.onCreate()
     }
 
     override fun onActivityDestroyed(activity: Activity) {
-        (activity as? Scoped)?.onDestroy()
+        (activity as? MainScoped)?.onDestroy()
     }
 }
