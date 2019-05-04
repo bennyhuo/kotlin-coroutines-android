@@ -5,7 +5,6 @@ import android.os.Looper
 import com.bennyhuo.kotlin.coroutines.android.mainscope.EmptyScope
 import com.bennyhuo.kotlin.coroutines.android.mainscope.MainScope
 import com.bennyhuo.kotlin.coroutines.android.mainscope.MainScopeImpl
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
 import java.util.*
 
@@ -21,9 +20,9 @@ interface MainScoped {
             }
             return (scopeMap[this as Activity]) ?: EmptyScope
         }
-
-    fun <T> withScope(block: CoroutineScope.() -> T) = with(mainScope, block)
 }
+
+inline fun <T> MainScoped.withMainScope(block: MainScope.() -> T) = with(mainScope, block)
 
 internal fun MainScoped.onCreate() {
     val activity = this as Activity
