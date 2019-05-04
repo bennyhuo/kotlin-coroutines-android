@@ -16,10 +16,10 @@ internal class ActivityLifecycleCallbackImpl : Application.ActivityLifecycleCall
     override fun onActivityStopped(activity: Activity) {}
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-        (activity as? MainScope)?.onCreate()
+        (activity as? Scoped)?.onCreate()
     }
 
     override fun onActivityDestroyed(activity: Activity) {
-        (activity as? MainScope)?.onDestroy()
+        (activity as? Scoped)?.onDestroy()
     }
 }

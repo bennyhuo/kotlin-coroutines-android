@@ -1,33 +1,17 @@
 package com.bennyhuo.kotlin.coroutines.android.mainscope
 
-import android.app.Activity
-import android.app.Application
-import com.bennyhuo.kotlin.coroutines.android.mainscope.job.EmptyScope
+import com.bennyhuo.kotlin.coroutines.android.mainscope.job.EmptyJob
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.cancel
-import java.util.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlin.coroutines.CoroutineContext
 
-interface MainScope {
-    companion object {
-        internal val scopeMap = IdentityHashMap<Activity, CoroutineScope>()
+interface MainScope: CoroutineScope
 
-        fun setUp(application: Application){
-            application.registerActivityLifecycleCallbacks(ActivityLifecycleCallbackImpl())
-        }
-    }
-
-    val scope: CoroutineScope
-        get() = (scopeMap[this as Activity]) ?: EmptyScope
-
-    fun <T> withScope(block: CoroutineScope.() -> T) = with(scope, block)
+internal class MainScopeImpl: MainScope {
+    override val coroutineContext = SupervisorJob() + Dispatchers.Main
 }
 
-internal fun MainScope.onCreate() {
-    val activity = this as Activity
-    MainScope.scopeMap[activity] ?: MainScope().also { MainScope.scopeMap[activity] = it }
-}
-
-internal fun MainScope.onDestroy() {
-    MainScope.scopeMap.remove(this as Activity)?.cancel()
+internal object EmptyScope : MainScope {
+    override val coroutineContext: CoroutineContext = EmptyJob()
 }
