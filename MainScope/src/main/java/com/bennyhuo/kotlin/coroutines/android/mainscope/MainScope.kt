@@ -10,8 +10,11 @@ import kotlin.coroutines.CoroutineContext
 
 interface MainScope: CoroutineScope{
     companion object{
+        internal var isSetUp = false
+
         fun setUp(application: Application){
             application.registerActivityLifecycleCallbacks(ActivityLifecycleCallbackImpl())
+            isSetUp = true
         }
     }
 }

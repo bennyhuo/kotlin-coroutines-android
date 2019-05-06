@@ -2,6 +2,7 @@ package com.bennyhuo.kotlin.coroutines.android.mainscope.internal
 
 import android.app.Activity
 import android.os.Looper
+import android.util.Log
 import com.bennyhuo.kotlin.coroutines.android.mainscope.EmptyScope
 import com.bennyhuo.kotlin.coroutines.android.mainscope.MainScope
 import com.bennyhuo.kotlin.coroutines.android.mainscope.MainScopeImpl
@@ -15,10 +16,15 @@ interface MainScoped {
 
     val mainScope: MainScope
         get() {
-            if(Thread.currentThread() != Looper.getMainLooper().thread){
-                throw IllegalAccessException("MainScope")
+            if(!MainScope.isSetUp){
+                throw IllegalStateException("MainScope has not been set up yet! Call `MainScope.setUp(application)` once your customized Application created.")
             }
-            return (scopeMap[this as Activity]) ?: EmptyScope
+            if(Thread.currentThread() != Looper.getMainLooper().thread){
+                throw IllegalAccessException("MainScope must be accessed from the UI main thread.")
+            }
+            return (scopeMap[this as Activity]) ?: EmptyScope.also {
+                Log.w("MainScope", "Access MainScope when Activity is not created or destroyed.")
+            }
         }
 }
 

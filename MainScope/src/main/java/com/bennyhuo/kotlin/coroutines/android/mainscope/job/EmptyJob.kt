@@ -6,6 +6,8 @@ import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.selects.SelectClause0
 import kotlinx.coroutines.selects.SelectInstance
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.CoroutineContext.Element
 import kotlin.coroutines.CoroutineContext.Key
 
 internal class EmptyJob : JobCompat(), SelectClause0 {
@@ -41,4 +43,18 @@ internal class EmptyJob : JobCompat(), SelectClause0 {
     override suspend fun join() = Unit
 
     override fun start() = false
+
+    override fun plus(other: Job): Job = this
+
+    override fun cancel() = Unit
+
+    override fun plus(context: CoroutineContext) = this
+
+    override operator fun <E : Element> get(key: Key<E>): E? =
+            if (this.key == key) this as E else null
+
+    override fun <R> fold(initial: R, operation: (R, Element) -> R): R = operation(initial, this)
+
+    override fun minusKey(key: Key<*>) = this
+
 }

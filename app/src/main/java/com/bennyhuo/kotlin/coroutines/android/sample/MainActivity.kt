@@ -53,5 +53,12 @@ class MainActivity : AppCompatActivity(), AppCompatScoped, RecyclerViewScoped, D
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        withMainScope {
+            launch {  }
+        }
+    }
+
     fun log(msg: Any?) = Log.d("Coroutine", "$msg")
 }

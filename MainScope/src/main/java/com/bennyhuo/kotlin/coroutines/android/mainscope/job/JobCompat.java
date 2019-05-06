@@ -9,7 +9,19 @@ import kotlinx.coroutines.Job;
 abstract class JobCompat implements Job {
      @NotNull
     @Override
-    public ChildHandle attachChild(@NotNull ChildJob childJob) {
-        throw new UnsupportedOperationException();
+     public final ChildHandle attachChild(@NotNull ChildJob childJob) {
+         return EmptyChildHandle.instance;
+    }
+
+    private static class EmptyChildHandle implements ChildHandle {
+        private static final EmptyChildHandle instance = new EmptyChildHandle();
+
+        @Override
+        public boolean childCancelled(@NotNull Throwable throwable) {
+            return true;
+        }
+
+        @Override
+        public void dispose() { }
     }
 }
