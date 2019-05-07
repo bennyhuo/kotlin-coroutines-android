@@ -9,6 +9,8 @@ import com.bennyhuo.kotlin.coroutines.android.mainscope.MainScopeImpl
 import kotlinx.coroutines.cancel
 import java.util.*
 
+internal const val TAG = "MainScope"
+
 interface MainScoped {
     companion object {
         internal val scopeMap = IdentityHashMap<Activity, MainScope>()
@@ -22,8 +24,15 @@ interface MainScoped {
             if(Thread.currentThread() != Looper.getMainLooper().thread){
                 throw IllegalAccessException("MainScope must be accessed from the UI main thread.")
             }
-            return (scopeMap[this as Activity]) ?: EmptyScope.also {
-                Log.w("MainScope", "Access MainScope when Activity is not created or destroyed.")
+            val activity = this as Activity
+            return (scopeMap[activity]) ?: run {
+                if(activity.isFinishing){
+                    Log.w(TAG, "Access MainScope when activity:$activity is FINISHING. EmptyScope will be returned.")
+                    EmptyScope
+                } else {
+                    Log.d(TAG, "Create MainScope for activity: $activity")
+                    MainScopeImpl().also { scopeMap[activity] = it }
+                }
             }
         }
 }
@@ -31,8 +40,7 @@ interface MainScoped {
 inline fun <T> MainScoped.withMainScope(block: MainScope.() -> T) = with(mainScope, block)
 
 internal fun MainScoped.onCreate() {
-    val activity = this as Activity
-    MainScoped.scopeMap[activity] ?: MainScopeImpl().also { MainScoped.scopeMap[activity] = it }
+    //won't create immediately.
 }
 
 internal fun MainScoped.onDestroy() {

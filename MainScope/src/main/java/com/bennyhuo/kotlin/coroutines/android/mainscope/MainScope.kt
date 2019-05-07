@@ -2,6 +2,7 @@ package com.bennyhuo.kotlin.coroutines.android.mainscope
 
 import android.app.Application
 import com.bennyhuo.kotlin.coroutines.android.mainscope.internal.ActivityLifecycleCallbackImpl
+import com.bennyhuo.kotlin.coroutines.android.mainscope.job.EmptyInterceptor
 import com.bennyhuo.kotlin.coroutines.android.mainscope.job.EmptyJob
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,5 +25,5 @@ internal class MainScopeImpl: MainScope {
 }
 
 internal object EmptyScope : MainScope {
-    override val coroutineContext: CoroutineContext = EmptyJob()
+    override val coroutineContext: CoroutineContext = EmptyJob() + EmptyInterceptor
 }

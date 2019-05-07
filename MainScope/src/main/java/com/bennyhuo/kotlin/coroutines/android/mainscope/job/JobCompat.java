@@ -2,6 +2,7 @@ package com.bennyhuo.kotlin.coroutines.android.mainscope.job;
 
 import org.jetbrains.annotations.NotNull;
 
+import kotlin.coroutines.CoroutineContext;
 import kotlinx.coroutines.ChildHandle;
 import kotlinx.coroutines.ChildJob;
 import kotlinx.coroutines.Job;
@@ -23,5 +24,12 @@ abstract class JobCompat implements Job {
 
         @Override
         public void dispose() { }
+    }
+
+    //solutions for AbstractMethodError.
+    @NotNull
+    @Override
+    public final CoroutineContext plus(@NotNull CoroutineContext coroutineContext) {
+        return CoroutineContext.DefaultImpls.plus(this, coroutineContext);
     }
 }

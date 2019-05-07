@@ -9,13 +9,16 @@ import kotlinx.coroutines.selects.SelectInstance
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.CoroutineContext.Element
 import kotlin.coroutines.CoroutineContext.Key
+import kotlin.coroutines.EmptyCoroutineContext
 
 internal class EmptyJob : JobCompat(), SelectClause0 {
+    private val cancellationException = CancellationException("EmptyScope")
+
     override val children: Sequence<Job> = emptySequence()
 
     override val isActive: Boolean = false
 
-    override val isCancelled: Boolean = false
+    override val isCancelled: Boolean = true
 
     override val isCompleted: Boolean = true
 
@@ -31,14 +34,12 @@ internal class EmptyJob : JobCompat(), SelectClause0 {
     override fun cancel(cause: CancellationException?) = Unit
 
     @InternalCoroutinesApi
-    override fun getCancellationException(): CancellationException {
-        throw IllegalStateException()
-    }
+    override fun getCancellationException() = cancellationException
 
     @InternalCoroutinesApi
-    override fun invokeOnCompletion(onCancelling: Boolean, invokeImmediately: Boolean, handler: CompletionHandler) = EmptyDisposableHandle
+    override fun invokeOnCompletion(onCancelling: Boolean, invokeImmediately: Boolean, handler: CompletionHandler) = EmptyDisposableHandle.also { handler.invoke(cancellationException) }
 
-    override fun invokeOnCompletion(handler: CompletionHandler) = EmptyDisposableHandle
+    override fun invokeOnCompletion(handler: CompletionHandler) = EmptyDisposableHandle.also { handler.invoke(cancellationException) }
 
     override suspend fun join() = Unit
 
@@ -48,13 +49,13 @@ internal class EmptyJob : JobCompat(), SelectClause0 {
 
     override fun cancel() = Unit
 
-    override fun plus(context: CoroutineContext) = this
-
+    //region solutions for AbstractMethodError.
     override operator fun <E : Element> get(key: Key<E>): E? =
             if (this.key == key) this as E else null
 
     override fun <R> fold(initial: R, operation: (R, Element) -> R): R = operation(initial, this)
 
-    override fun minusKey(key: Key<*>) = this
-
+    override fun minusKey(key: Key<*>): CoroutineContext =
+            if (this.key == key) EmptyCoroutineContext else this
+    //endregion
 }
