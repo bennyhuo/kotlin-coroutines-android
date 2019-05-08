@@ -12,6 +12,8 @@ import com.bennyhuo.kotlin.coroutines.android.mainscope.RecyclerViewScoped
 import com.bennyhuo.kotlin.coroutines.android.mainscope.internal.withMainScope
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineStart.ATOMIC
+import kotlinx.coroutines.CoroutineStart.UNDISPATCHED
 
 class MainActivity : AppCompatActivity(), AppCompatScoped, RecyclerViewScoped, DesignScoped {
 
@@ -67,10 +69,34 @@ class MainActivity : AppCompatActivity(), AppCompatScoped, RecyclerViewScoped, D
         withMainScope {
             launch {
                 val job = coroutineContext[Job]
-                log("This may be dispatched according to the start mode. isActive: ${job?.isActive}, isCancelled: ${job?.isCancelled}")
+                log("This may be dispatched according to the start mode: DEFAULT. isActive: ${job?.isActive}, isCancelled: ${job?.isCancelled}")
                 //Scope is cancelled, so any cancellable suspend functions will respond to it.
                 delay(100)
-                log("Never gonna happen.")
+                log("[DEFAULT][Empty]Never gonna happen.")
+            }
+
+            launch(start = ATOMIC) {
+                val job = coroutineContext[Job]
+                log("This may be dispatched according to the start mode: ATOMIC. isActive: ${job?.isActive}, isCancelled: ${job?.isCancelled}")
+                //Scope is cancelled, so any cancellable suspend functions will respond to it.
+                delay(100)
+                log("[ATOMIC][DEFAULT]Never gonna happen.")
+            }
+
+            launch(start = UNDISPATCHED) {
+                val job = coroutineContext[Job]
+                log("This may be dispatched according to the start mode: UNDISPATCHED. isActive: ${job?.isActive}, isCancelled: ${job?.isCancelled}")
+                //Scope is cancelled, so any cancellable suspend functions will respond to it.
+                delay(100)
+                log("[UNDISPATCHED][DEFAULT]Never gonna happen.")
+            }
+
+            launch(Dispatchers.Default) {
+                val job = coroutineContext[Job]
+                log("This may be dispatched according to the start mode: DEFAULT, using Dispatcher: Default. isActive: ${job?.isActive}, isCancelled: ${job?.isCancelled}")
+                //Scope is cancelled, so any cancellable suspend functions will respond to it.
+                delay(100)
+                log("[DEFAULT][DEFAULT]Never gonna happen.")
             }
         }
     }

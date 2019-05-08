@@ -11,6 +11,8 @@ abstract class JobCompat implements Job {
      @NotNull
     @Override
      public final ChildHandle attachChild(@NotNull ChildJob childJob) {
+         //Parent is already cancelled. So cancel child directly.
+         childJob.cancel(getCancellationException());
          return EmptyChildHandle.instance;
     }
 
