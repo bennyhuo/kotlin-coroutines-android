@@ -44,7 +44,7 @@ class MainFragment : Fragment(), BasicScoped {
         //log("Before super.onDestroyView, mainScope:$mainScope is Active: ${mainScope.isActive}")
         //MainScope is still valid if activity is not finishing.
         super.onDestroyView()
-        //MainScope will not be created, and destroyed right after this method call if created before .
+        //MainScope is gonna destroyed right after this method call if created before .
         log("After super.onDestroyView, mainScope:$mainScope is Active: ${mainScope.isActive}")
     }
 
