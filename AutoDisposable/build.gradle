@@ -42,7 +42,7 @@ publish {
     groupId = project.groupId
     repoName = project.repoName
     artifactId = 'coroutines-android-autodisposable'
-    publishVersion = project.publishVersion
+    publishVersion = "1.0"//project.publishVersion
     desc = project.desc//描述，不重要
     website = project.website
     bintrayUser = project.userName

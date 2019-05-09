@@ -1,4 +1,4 @@
-package com.bennyhuo.kotlin.coroutines.android.mainscope.internal
+package com.bennyhuo.kotlin.coroutines.android.mainscope.scope
 
 import android.app.Activity
 import android.os.Looper
@@ -41,7 +41,7 @@ private fun MainScoped.isDestroyed(): Boolean {
             this.isFinishing
         }
         MainScope.isFragmentSupported && this is Fragment ->{
-            this.activity?.isFinishing?: true || this.view == null
+            this.activity?.isFinishing?: true || this.isRemoving ||this.view == null
         }
         else ->{
             throw IllegalAccessException("An Activity or android.support.v4.app.Fragment is needed!")

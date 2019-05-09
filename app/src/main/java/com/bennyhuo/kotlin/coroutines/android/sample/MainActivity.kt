@@ -6,14 +6,14 @@ import android.util.Log
 import android.view.ViewGroup.LayoutParams
 import android.widget.Button
 import com.bennyhuo.kotlin.coroutines.android.autodisposable.asAutoDisposable
-import com.bennyhuo.kotlin.coroutines.android.mainscope.BasicScoped
-import com.bennyhuo.kotlin.coroutines.android.mainscope.internal.withMainScope
+import com.bennyhuo.kotlin.coroutines.android.mainscope.scope.BasicScoped
+import com.bennyhuo.kotlin.coroutines.android.mainscope.scope.withMainScope
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.CoroutineStart.ATOMIC
 import kotlinx.coroutines.CoroutineStart.UNDISPATCHED
 
-class MainActivity : Activity(), BasicScoped{
+class MainActivity : Activity(), BasicScoped {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         log("Before super.onCreate, mainScope:$mainScope is Active: ${mainScope.isActive}")

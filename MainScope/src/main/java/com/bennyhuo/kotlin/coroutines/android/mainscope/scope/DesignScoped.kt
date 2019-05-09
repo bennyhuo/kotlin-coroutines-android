@@ -1,7 +1,8 @@
-package com.bennyhuo.kotlin.coroutines.android.mainscope
+package com.bennyhuo.kotlin.coroutines.android.mainscope.scope
 
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.TabLayout.Tab
+import com.bennyhuo.kotlin.coroutines.android.mainscope.MainScope
 import com.bennyhuo.kotlin.coroutines.android.mainscope.job.launch
 
 interface DesignScoped: BasicScoped {

@@ -1,7 +1,7 @@
-package com.bennyhuo.kotlin.coroutines.android.mainscope
+package com.bennyhuo.kotlin.coroutines.android.mainscope.scope
 
 import android.view.WindowInsets
-import com.bennyhuo.kotlin.coroutines.android.mainscope.internal.MainScoped
+import com.bennyhuo.kotlin.coroutines.android.mainscope.MainScope
 import com.bennyhuo.kotlin.coroutines.android.mainscope.job.launch
 
 interface BasicScoped: MainScoped {

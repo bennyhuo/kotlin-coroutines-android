@@ -1,5 +1,6 @@
-package com.bennyhuo.kotlin.coroutines.android.mainscope
+package com.bennyhuo.kotlin.coroutines.android.mainscope.scope
 
+import com.bennyhuo.kotlin.coroutines.android.mainscope.MainScope
 import com.bennyhuo.kotlin.coroutines.android.mainscope.job.launch
 
 interface RecyclerViewScoped: BasicScoped {

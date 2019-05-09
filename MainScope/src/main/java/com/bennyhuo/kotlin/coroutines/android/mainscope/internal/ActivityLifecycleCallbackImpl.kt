@@ -5,6 +5,9 @@ import android.app.Application
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import com.bennyhuo.kotlin.coroutines.android.mainscope.MainScope
+import com.bennyhuo.kotlin.coroutines.android.mainscope.scope.MainScoped
+import com.bennyhuo.kotlin.coroutines.android.mainscope.scope.onMainScopeCreate
+import com.bennyhuo.kotlin.coroutines.android.mainscope.scope.onMainScopeDestroy
 import com.bennyhuo.kotlin.coroutines.android.mainscope.utils.Logcat
 
 internal object ActivityLifecycleCallbackImpl : Application.ActivityLifecycleCallbacks {
