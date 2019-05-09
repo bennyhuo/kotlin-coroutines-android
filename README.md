@@ -12,7 +12,7 @@ Inspired by [AutoDispose](https://github.com/uber/autodispose), auto cancel the 
 Add dependency in gradle:
 
 ```
-api "com.bennyhuo.kotlin:coroutines-android-autodisposable:1.0-beta"
+api "com.bennyhuo.kotlin:coroutines-android-autodisposable:1.0"
 ```
 
 Use `asAutoDisposable` to convert a `Job` to an `AutoDisposableJob`. Then the job will be cancelled when the view is removed.
@@ -35,16 +35,18 @@ anotherButton.setOnClickListener {
 
 ## MainScope
 
+Versions see [ChangeLog](MainScope/ChangeLog.md).
+
 Supplement for kotlinx.coroutines, providing useful extensions for android Views and easier way to integrate.
 
-An instance of `MainScope` which use `Dispatchers.Main` as its dispatcher will be bound to the lifecycle of the corresponding `Activity`. In other words, an instance of `MainScope` will be created when an activity is created and cancelled when the activity is destroyed.
+An instance of `MainScope` which use `Dispatchers.Main` as its dispatcher will be bound to the lifecycle of the corresponding `Activity` or `Fragment`. In other words, an instance of `MainScope` will be created when an activity is created and cancelled when the activity is destroyed or the view of the fragment is destroyed.
 
 ### Usage
 
 Add dependency in gradle:
 
 ```
-api 'com.bennyhuo.kotlin:coroutines-android-mainscope:1.0-beta'
+api 'com.bennyhuo.kotlin:coroutines-android-mainscope:1.0-beta2'
 ```
 
 Initialize this library in your customized `Application`:
@@ -58,7 +60,7 @@ class App : Application() {
 }
 ```
 
-Implement `BasicScoped` to include `View` extensions for android sdk, `RecyclerViewScoped` for `RecyclerView`, `DesignScoped`  for android support design library, `AppCompatScoped` for android support appcomat library. If more than one interfaces are used, just implement whatever you need.
+Implement `BasicScoped` to include `View` extensions for android sdk, `RecyclerViewScoped` for `RecyclerView`, `DesignScoped`  for android support design library, `AppCompatScoped` for android support appcompat library. If more than one interfaces are used, just implement whatever you need.
 
 ```kotlin
 class MainActivity : AppCompatActivity(), AppCompatScoped, RecyclerViewScoped {
@@ -111,6 +113,10 @@ Most of the listeners borrowed from [Anko](https://github.com/kotlin/anko) are e
 
 `onClick` receives a suspend lambda as the body of the job. Once the button clicked, the lambda block will be started immediately on the main thread, and suspended at `delay(1000)`. If you leave the activity by pressing the back key, the suspend lambda won't be dispatched since the job is cancelled by the `MainScope` installed in the activity.
 
+
+### About Fragment
+
+Since `android.app.Fragment` is deprecated, we choose to support `android.support.v4.app.Fragment` only. If you include the library into the classpath, Fragment support will be automatically enabled for subtypes of `FragmentActivity`. Otherwise if you never use Fragment, don't worry, nothing will happen.
 
 ## Issue
 
