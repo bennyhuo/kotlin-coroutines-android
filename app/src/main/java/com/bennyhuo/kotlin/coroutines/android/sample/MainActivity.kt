@@ -1,21 +1,19 @@
 package com.bennyhuo.kotlin.coroutines.android.sample
 
+import android.app.Activity
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.ViewGroup.LayoutParams
 import android.widget.Button
 import com.bennyhuo.kotlin.coroutines.android.autodisposable.asAutoDisposable
-import com.bennyhuo.kotlin.coroutines.android.mainscope.AppCompatScoped
-import com.bennyhuo.kotlin.coroutines.android.mainscope.DesignScoped
-import com.bennyhuo.kotlin.coroutines.android.mainscope.RecyclerViewScoped
+import com.bennyhuo.kotlin.coroutines.android.mainscope.BasicScoped
 import com.bennyhuo.kotlin.coroutines.android.mainscope.internal.withMainScope
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.CoroutineStart.ATOMIC
 import kotlinx.coroutines.CoroutineStart.UNDISPATCHED
 
-class MainActivity : AppCompatActivity(), AppCompatScoped, RecyclerViewScoped, DesignScoped {
+class MainActivity : Activity(), BasicScoped{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         log("Before super.onCreate, mainScope:$mainScope is Active: ${mainScope.isActive}")

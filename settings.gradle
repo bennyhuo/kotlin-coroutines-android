@@ -1,1 +1,2 @@
-include ':app', ':MainScope', ':AutoDisposable'
+include ':app', ':app-fragment'
+include ':MainScope', ':AutoDisposable'

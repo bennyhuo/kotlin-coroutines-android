@@ -1,7 +1,6 @@
 package com.bennyhuo.kotlin.coroutines.android.mainscope.job
 
-import android.util.Log
-import com.bennyhuo.kotlin.coroutines.android.mainscope.internal.TAG
+import com.bennyhuo.kotlin.coroutines.android.mainscope.utils.Logcat
 import kotlin.coroutines.*
 
 internal object EmptyInterceptor: ContinuationInterceptor, AbstractCoroutineContextElement(ContinuationInterceptor) {
@@ -13,7 +12,7 @@ internal object EmptyInterceptor: ContinuationInterceptor, AbstractCoroutineCont
         override val context: CoroutineContext = EmptyCoroutineContext
 
         override fun resumeWith(result: Result<Any>) {
-            Log.w(TAG, "Intercepted coroutine. won't resume.")
+            Logcat.warn("Intercepted coroutine. won't resume.")
         }
     }
 }

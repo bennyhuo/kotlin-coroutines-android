@@ -5,6 +5,7 @@ import com.bennyhuo.kotlin.coroutines.android.mainscope.internal.ActivityLifecyc
 import com.bennyhuo.kotlin.coroutines.android.mainscope.job.EmptyInterceptor
 import com.bennyhuo.kotlin.coroutines.android.mainscope.job.EmptyJob
 import com.bennyhuo.kotlin.coroutines.android.mainscope.job.ImmutableCoroutineContext
+import com.bennyhuo.kotlin.coroutines.android.mainscope.utils.Logcat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -13,10 +14,28 @@ import kotlin.coroutines.CoroutineContext
 interface MainScope: CoroutineScope{
     companion object{
         internal var isSetUp = false
+        internal var isDebug = false
 
-        fun setUp(application: Application){
-            application.registerActivityLifecycleCallbacks(ActivityLifecycleCallbackImpl())
+        val isFragmentSupported by lazy {
+            try {
+                Class.forName("android.support.v4.app.Fragment")
+                Logcat.debug("Fragment enabled.")
+                true
+            }catch (e: ClassNotFoundException){
+                Logcat.debug("Fragment disabled.")
+                Logcat.error(e)
+                false
+            }
+        }
+
+        fun setUp(application: Application): Companion {
+            application.registerActivityLifecycleCallbacks(ActivityLifecycleCallbackImpl)
             isSetUp = true
+            return this
+        }
+
+        fun enableDebug(){
+            isDebug = true
         }
     }
 }
