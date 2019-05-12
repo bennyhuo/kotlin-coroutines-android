@@ -118,6 +118,8 @@ Most of the listeners borrowed from [Anko](https://github.com/kotlin/anko) are e
 
 Since `android.app.Fragment` is deprecated, we choose to support `android.support.v4.app.Fragment` only. If you include the library into the classpath, Fragment support will be automatically enabled for subtypes of `FragmentActivity`. Otherwise if you never use Fragment, don't worry, nothing will happen.
 
+ `FragmentLifecycleCallbacks` was added from v25.1.0 so older versions will not be supported.
+
 ## Issue
 
 Please feel free to issue and pull request.

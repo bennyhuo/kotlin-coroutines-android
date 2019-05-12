@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment
 import com.bennyhuo.kotlin.coroutines.android.mainscope.EmptyScope
 import com.bennyhuo.kotlin.coroutines.android.mainscope.MainScope
 import com.bennyhuo.kotlin.coroutines.android.mainscope.MainScopeImpl
+import com.bennyhuo.kotlin.coroutines.android.mainscope.exception.UnsupportedTypeException
+import com.bennyhuo.kotlin.coroutines.android.mainscope.exception.UnsupportedVersionException
 import com.bennyhuo.kotlin.coroutines.android.mainscope.utils.Logcat
 import kotlinx.coroutines.cancel
 import java.util.*
@@ -44,7 +46,17 @@ private fun MainScoped.isDestroyed(): Boolean {
             this.activity?.isFinishing?: true || this.isRemoving ||this.view == null
         }
         else ->{
-            throw IllegalAccessException("An Activity or android.support.v4.app.Fragment is needed!")
+            val fragmentClass = try {
+                Class.forName("android.support.v4.app.Fragment")
+            } catch (e: Exception) {
+                null
+            }
+            fragmentClass?.let {
+                if(it.isAssignableFrom(this.javaClass)){
+                    throw UnsupportedVersionException("com.android.support:support-fragment", "<25.1.0")
+                }
+            }
+            throw UnsupportedTypeException(this.javaClass, "android.app.Activity", "android.support.v4.app.Fragment")
         }
     }
 }

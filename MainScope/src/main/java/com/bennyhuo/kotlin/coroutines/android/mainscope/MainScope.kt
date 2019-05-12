@@ -18,7 +18,7 @@ interface MainScope: CoroutineScope{
 
         val isFragmentSupported by lazy {
             try {
-                Class.forName("android.support.v4.app.Fragment")
+                Class.forName("android.support.v4.app.FragmentManager\$FragmentLifecycleCallbacks")
                 Logcat.debug("Fragment enabled.")
                 true
             }catch (e: ClassNotFoundException){

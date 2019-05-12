@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity(), BasicScoped {
 
         button.onClick {
             supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(android.R.animator.fade_in,android.R.animator.fade_out)
+                    .setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out)
                     .add(R.id.fragmentContainer, MainFragment())
                     .addToBackStack("Main").commit()
         }
