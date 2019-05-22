@@ -37,12 +37,14 @@ artifacts {
 
 apply plugin: 'com.novoda.bintray-release'
 
+version '1.0'
+
 publish {
     userOrg = project.userName
     groupId = project.groupId
     repoName = project.repoName
     artifactId = 'coroutines-android-autodisposable'
-    publishVersion = "1.0"//project.publishVersion
+    publishVersion = version//project.publishVersion
     desc = project.desc//描述，不重要
     website = project.website
     bintrayUser = project.userName
