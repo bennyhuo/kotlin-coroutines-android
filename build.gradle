@@ -39,7 +39,7 @@ ext {
     apiKey = props.getProperty("bintray.key")
     repoName = "bennyhuo"
     groupId = project.group
-    publishVersion = project.version
+    releaseVersion = project.version
     desc = ""
     website = 'https://github.com/enbandari/kotlin-coroutines-android'
     dryRun = "false"
