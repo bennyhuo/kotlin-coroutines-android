@@ -46,7 +46,7 @@ An instance of `MainScope` which use `Dispatchers.Main` as its dispatcher will b
 Add dependency in gradle:
 
 ```
-api 'com.bennyhuo.kotlin:coroutines-android-mainscope:1.0-beta2'
+api 'com.bennyhuo.kotlin:coroutines-android-mainscope:1.0'
 ```
 
 Initialize this library in your customized `Application`:

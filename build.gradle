@@ -29,7 +29,7 @@ task clean(type: Delete) {
 }
 
 group 'com.bennyhuo.kotlin'
-version '1.0-beta2'
+version '1.0'
 
 def props = new Properties()
 file("jcenter.properties").withInputStream { props.load(it) }
@@ -41,6 +41,6 @@ ext {
     groupId = project.group
     publishVersion = project.version
     desc = ""
-    website = 'https://github.com/enbandari/ReleasableVar'
+    website = 'https://github.com/enbandari/kotlin-coroutines-android'
     dryRun = "false"
 }
