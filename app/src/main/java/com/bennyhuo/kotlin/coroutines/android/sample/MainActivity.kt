@@ -33,6 +33,11 @@ class MainActivity : Activity(), BasicScoped {
             textView.text = "Hello Coroutine!"
         }
 
+        textView.onClick {
+            val myDialog = MyDialog(this@MainActivity)
+            myDialog.show()
+        }
+
         withMainScope {
             launch {
                 log("Now we'll start an async block.")
