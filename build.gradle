@@ -29,7 +29,7 @@ task clean(type: Delete) {
 }
 
 group 'com.bennyhuo.kotlin'
-version '1.0'
+version '1.1-rc'
 
 def props = new Properties()
 file("jcenter.properties").withInputStream { props.load(it) }
