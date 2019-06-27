@@ -74,6 +74,9 @@ private fun MainScoped.isDestroyed(): Boolean {
         MainScope.isFragmentSupported && this is Fragment ->{
             this.activity?.isFinishing?: true || this.isRemoving ||this.view == null
         }
+        MainScope.isAndroidXFragmentSupported && this is androidx.fragment.app.Fragment ->{
+            this.activity?.isFinishing?: true || this.isRemoving ||this.view == null
+        }
         else ->{
             val fragmentClass = try {
                 Class.forName("android.support.v4.app.Fragment")

@@ -28,6 +28,8 @@ dependencies {
     compileOnly "com.android.support:recyclerview-v7:$android_support_version"
     compileOnly "com.android.support:design:$android_support_version"
     compileOnly "com.android.support:appcompat-v7:$android_support_version"
+
+    compileOnly "androidx.fragment:fragment:1.0.0"
 }
 
 
