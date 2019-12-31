@@ -25,6 +25,8 @@ internal object ActivityLifecycleCallbackImpl : Application.ActivityLifecycleCal
         (activity as? MainScoped)?.onMainScopeCreate()
         if (MainScope.isFragmentSupported) {
             (activity as? FragmentActivity)?.supportFragmentManager?.registerFragmentLifecycleCallbacks(FragmentLifecycleCallbackImpl, true)
+        } else if (MainScope.isAndroidXFragmentSupported){ // androidx
+            (activity as? androidx.fragment.app.FragmentActivity)?.supportFragmentManager?.registerFragmentLifecycleCallbacks(AndroidXFragmentLifecycleCallbackImpl, true)
         }
     }
 
@@ -34,6 +36,15 @@ internal object ActivityLifecycleCallbackImpl : Application.ActivityLifecycleCal
             Logcat.debug("onActivityDestroyed")
             (activity as? FragmentActivity)?.supportFragmentManager?.let { fragmentManager ->
                 fragmentManager.unregisterFragmentLifecycleCallbacks(FragmentLifecycleCallbackImpl)
+                //Fragments may not be destroyed, so cancel scope right now.
+                fragmentManager.fragments.forEach { fragment ->
+                    (fragment as? MainScoped)?.onMainScopeDestroy()
+                }
+            }
+        } else if (MainScope.isAndroidXFragmentSupported){ // androidx
+            Logcat.debug("onActivityDestroyed")
+            (activity as? androidx.fragment.app.FragmentActivity)?.supportFragmentManager?.let { fragmentManager ->
+                fragmentManager.unregisterFragmentLifecycleCallbacks(AndroidXFragmentLifecycleCallbackImpl)
                 //Fragments may not be destroyed, so cancel scope right now.
                 fragmentManager.fragments.forEach { fragment ->
                     (fragment as? MainScoped)?.onMainScopeDestroy()

@@ -1,2 +1,2 @@
-include ':app', ':app-fragment'
+include ':app', ':app-fragment', ':app-androidx'
 include ':MainScope', ':AutoDisposable'

@@ -1,9 +1,10 @@
-package com.bennyhuo.kotlin.coroutines.android.mainscope.scope
+package com.bennyhuo.kotlin.coroutines.android.mainscope.support
 
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.TabLayout.Tab
 import com.bennyhuo.kotlin.coroutines.android.mainscope.MainScope
 import com.bennyhuo.kotlin.coroutines.android.mainscope.job.launch
+import com.bennyhuo.kotlin.coroutines.android.mainscope.scope.BasicScoped
 
 interface DesignScoped: BasicScoped {
     fun android.support.design.widget.AppBarLayout.onOffsetChanged(

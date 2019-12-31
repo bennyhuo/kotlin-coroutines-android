@@ -28,6 +28,19 @@ interface MainScope: CoroutineScope{
             }
         }
 
+        val isAndroidXFragmentSupported by lazy {
+            try {
+                Class.forName("androidx.fragment.app.FragmentManager\$FragmentLifecycleCallbacks")
+                Logcat.debug("AndroidX Fragment enabled.")
+                true
+            }catch (e: ClassNotFoundException){
+                Logcat.debug("AndroidX Fragment disabled.")
+                Logcat.error(e)
+                false
+            }
+        }
+
+
         fun setUp(application: Application): Companion {
             application.registerActivityLifecycleCallbacks(ActivityLifecycleCallbackImpl)
             isSetUp = true

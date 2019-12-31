@@ -1,7 +1,8 @@
-package com.bennyhuo.kotlin.coroutines.android.mainscope.scope
+package com.bennyhuo.kotlin.coroutines.android.mainscope.support
 
 import com.bennyhuo.kotlin.coroutines.android.mainscope.MainScope
 import com.bennyhuo.kotlin.coroutines.android.mainscope.job.launch
+import com.bennyhuo.kotlin.coroutines.android.mainscope.scope.BasicScoped
 
 interface RecyclerViewScoped: BasicScoped {
     fun android.support.v7.widget.RecyclerView.onChildAttachStateChangeListener(

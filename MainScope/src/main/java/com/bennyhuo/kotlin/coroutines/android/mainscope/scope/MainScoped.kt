@@ -45,6 +45,9 @@ private fun MainScoped.isDestroyed(): Boolean {
         MainScope.isFragmentSupported && this is Fragment ->{
             this.activity?.isFinishing?: true || this.isRemoving ||this.view == null
         }
+        MainScope.isAndroidXFragmentSupported && this is androidx.fragment.app.Fragment -> {
+            this.activity?.isFinishing?: true || this.isRemoving ||this.view == null
+        }
         else ->{
             val fragmentClass = try {
                 Class.forName("android.support.v4.app.Fragment")
@@ -56,7 +59,7 @@ private fun MainScoped.isDestroyed(): Boolean {
                     throw UnsupportedVersionException("com.android.support:support-fragment", "<25.1.0")
                 }
             }
-            throw UnsupportedTypeException(this.javaClass, "android.app.Activity", "android.support.v4.app.Fragment")
+            throw UnsupportedTypeException(this.javaClass, "android.app.Activity", "android.support.v4.app.Fragment", "androidx.fragment.app.Fragment")
         }
     }
 }

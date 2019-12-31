@@ -25,6 +25,9 @@ dependencies {
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_version"
 
+    compileOnly 'androidx.appcompat:appcompat:1.1.0'
+    compileOnly 'androidx.recyclerview:recyclerview:1.1.0'
+
     compileOnly "com.android.support:recyclerview-v7:$android_support_version"
     compileOnly "com.android.support:design:$android_support_version"
     compileOnly "com.android.support:appcompat-v7:$android_support_version"
